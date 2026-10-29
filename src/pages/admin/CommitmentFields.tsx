@@ -1,5 +1,4 @@
 import { ArrowDown, ArrowUp, Plus, Trash2 } from 'lucide-react';
-import styled from 'styled-components';
 import {
   Alert,
   Button,
@@ -11,42 +10,7 @@ import {
 } from '../../components/common';
 import type { Catalog } from '../../services/types';
 import { emptySource, type CommitmentFormState, type FormErrors } from './commitmentForm';
-
-const Fieldset = styled.fieldset`
-  margin: 0 0 24px;
-  padding: 16px 20px 4px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-
-  legend {
-    padding: 0 8px;
-    font-weight: 700;
-  }
-`;
-
-const TwoColumns = styled.div`
-  display: grid;
-  gap: 0 16px;
-
-  @media (min-width: 700px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-`;
-
-const SourceCard = styled.div`
-  margin-bottom: 16px;
-  padding: 12px 16px 0;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 12px;
-  }
-`;
+import { Fieldset, SourceCard, TwoColumns } from './CommitmentFields.styles';
 
 interface Props {
   form: CommitmentFormState;
@@ -54,7 +18,6 @@ interface Props {
   catalog: Catalog;
   errors: FormErrors;
 }
-
 /** Campos de conteúdo de um compromisso, compartilhados pela edição e pela criação. */
 export function CommitmentFields({ form, setForm, catalog, errors }: Props) {
   function set<K extends keyof CommitmentFormState>(key: K, value: CommitmentFormState[K]) {

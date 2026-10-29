@@ -1,55 +1,12 @@
 import { MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { LinkButton, Loading } from '../../components/common';
-import { Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { useRecentComments } from '../../hooks/useRecentComments';
 import { formatDateTime } from '../../utils/dates';
-
-const List = styled.ul`
-  display: grid;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  > li {
-    display: grid;
-    gap: 6px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  > li:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
-`;
-
-const Quote = styled.blockquote`
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin: 0;
-  padding-left: 12px;
-  border-left: 3px solid var(--border-strong);
-  overflow-wrap: anywhere;
-`;
-
-const Meta = styled.p`
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.857rem;
-`;
-
-const Note = styled.p`
-  margin: 0;
-  color: var(--muted);
-`;
+import { List, Meta, Note, Quote } from './RecentCommentsPanel.styles';
 
 const LIMIT = 3;
-
 /** Opinião em texto de pessoas; não é prova de nada sobre a execução do compromisso. */
 export function RecentCommentsPanel() {
   const { comments, loading, error } = useRecentComments(LIMIT);

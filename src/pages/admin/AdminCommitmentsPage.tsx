@@ -1,7 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { isCancel } from 'axios';
 import { Link, useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
 import {
   Alert,
   Badge,
@@ -22,73 +21,18 @@ import { formatDate, formatDateTime } from '../../utils/dates';
 import { extractApiError } from '../../utils/apiError';
 import { AdminNav } from './AdminNav';
 import { formatNumber } from '../../utils/numbers';
+import { Filters, List, Row } from './AdminCommitmentsPage.styles';
 
 const PAGE_SIZE = 20;
-
-const Filters = styled.form`
-  display: grid;
-  gap: 0 12px;
-  margin-bottom: 16px;
-  padding: 16px 20px 4px;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-
-  @media (min-width: 700px) {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .wide {
-    @media (min-width: 700px) {
-      grid-column: 1 / -1;
-    }
-  }
-  select {
-    margin-bottom: 16px;
-  }
-`;
-
-const List = styled.ul`
-  display: grid;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-`;
-
-const Row = styled.li`
-  display: grid;
-  gap: 6px;
-  padding: 12px 16px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-
-  h3 {
-    margin: 0;
-    font-size: 1rem;
-  }
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 12px;
-    align-items: center;
-    color: var(--muted);
-    font-size: 0.857rem;
-  }
-`;
-
 const publishedOptions = [
   { value: 'true', label: 'Publicados' },
   { value: 'false', label: 'Despublicados' },
 ];
-
 const sortOptions = [
   { value: 'area', label: 'Área' },
   { value: 'code', label: 'Código' },
   { value: 'deadline', label: 'Prazo' },
 ];
-
 export function AdminCommitmentsPage() {
   usePageTitle('Administração — compromissos');
   const { catalog } = useCatalog();

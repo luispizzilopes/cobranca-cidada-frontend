@@ -9,68 +9,25 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { CheckCircle2, Info, X, XCircle } from 'lucide-react';
-import styled from 'styled-components';
-
-export type ToastType = 'success' | 'error' | 'info';
+import { Close, Item, Region, type ToastType } from './Toast.styles';
 
 interface ToastEntry {
   id: number;
   message: string;
   type: ToastType;
 }
-
 export interface ToastActions {
   success: (message: string) => void;
   error: (message: string) => void;
   info: (message: string) => void;
 }
-
 const ToastContext = createContext<ToastActions>({
   success: () => {},
   error: () => {},
   info: () => {},
 });
-
-const Region = styled.div`
-  position: fixed;
-  z-index: 1100;
-  right: 16px;
-  bottom: 16px;
-  left: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-  pointer-events: none;
-`;
-
-const Item = styled.div<{ $type: ToastType }>`
-  pointer-events: auto;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  max-width: 420px;
-  padding: 12px 16px;
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-left: 6px solid
-    ${({ $type }) => ($type === 'success' ? 'var(--success)' : $type === 'error' ? 'var(--danger)' : 'var(--info)')};
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-`;
-
-const Close = styled.button`
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  padding: 2px;
-  margin-left: auto;
-`;
-
 const icons = { success: CheckCircle2, error: XCircle, info: Info };
 const DURATION = 6000;
-
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<ToastEntry[]>([]);
   const counter = useRef(0);
@@ -117,7 +74,6 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     </ToastContext.Provider>
   );
 }
-
 export function useToast(): ToastActions {
   return useContext(ToastContext);
 }

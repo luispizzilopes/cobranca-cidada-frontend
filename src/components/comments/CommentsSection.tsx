@@ -1,8 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { CornerDownRight, Trash2 } from 'lucide-react';
-import styled from 'styled-components';
 import { Alert, Button, Loading, Textarea, useToast } from '../common';
-import { Section, SectionTitle } from '../layout/Page/Page';
+import { Section, SectionTitle } from '../layout/Page/Page.styles';
 import { useSession } from '../../contexts/SessionContext';
 import { useVerifyEmail } from '../../contexts/VerifyEmailContext';
 import { useComments } from '../../hooks/useComments';
@@ -11,84 +10,21 @@ import { extractApiError, retryAfterSeconds } from '../../utils/apiError';
 import { formatDateTime } from '../../utils/dates';
 import { formatNumber } from '../../utils/numbers';
 import type { CommitmentComment } from '../../services/types';
+import {
+  Counter,
+  Form,
+  FormFooter,
+  Header,
+  List,
+  Replies,
+  ReplyForm,
+} from './CommentsSection.styles';
 
 const MAX_LENGTH = 1000;
 const MIN_LENGTH = 3;
-
-const Form = styled.form`
-  display: grid;
-  gap: 12px;
-  margin-bottom: 24px;
-`;
-
-const FormFooter = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const Counter = styled.span`
-  color: var(--muted);
-  font-size: 0.857rem;
-`;
-
-const List = styled.ul`
-  display: grid;
-  gap: 12px;
-  margin: 0 0 16px;
-  padding: 0;
-  list-style: none;
-
-  li {
-    padding: 12px 16px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--surface);
-  }
-  p {
-    margin: 4px 0 0;
-    white-space: pre-line;
-    overflow-wrap: anywhere;
-  }
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--muted);
-  font-size: 0.857rem;
-`;
-
-const Replies = styled.ul`
-  display: grid;
-  gap: 8px;
-  margin: 12px 0 0 !important;
-  padding: 0 0 0 16px !important;
-  list-style: none;
-  border-left: 3px solid var(--border);
-
-  li {
-    background: transparent !important;
-    border: 0 !important;
-    padding: 4px 0 !important;
-  }
-`;
-
-const ReplyForm = styled.form`
-  display: grid;
-  gap: 8px;
-  margin-top: 12px;
-`;
-
 interface Props {
   commitmentId: string;
 }
-
 /** Opiniões em texto. Como o voto, são só opinião: não mudam a situação de execução. */
 export function CommentsSection({ commitmentId }: Props) {
   const toast = useToast();

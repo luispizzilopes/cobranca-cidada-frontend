@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Download, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { Alert, Button, Loading, Modal, useToast } from '../../components/common';
-import { Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { useSession } from '../../contexts/SessionContext';
 import { votingService } from '../../services/voting/votingService';
 import type { MyVoteItem } from '../../services/types';
@@ -11,35 +10,7 @@ import { extractApiError } from '../../utils/apiError';
 import { formatDateTime } from '../../utils/dates';
 import { downloadJson } from '../../utils/download';
 import { formatNumber } from '../../utils/numbers';
-
-const List = styled.ul`
-  display: grid;
-  gap: 12px;
-  margin: 0 0 20px;
-  padding: 0;
-  list-style: none;
-
-  li {
-    padding: 12px 16px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-  }
-  small {
-    display: block;
-    color: var(--muted);
-  }
-`;
-
-const Actions = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-`;
-
-const Toolbar = styled(Actions)`
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-`;
+import { Actions, List, Toolbar } from './MyVotesSection.styles';
 
 interface Props {
   votes: MyVoteItem[];
@@ -48,7 +19,6 @@ interface Props {
   reload: () => Promise<void>;
   voterOnly: boolean;
 }
-
 function describe(vote: MyVoteItem): string {
   const parts: string[] = [];
   if (vote.charge) parts.push('cobrou');
@@ -56,7 +26,6 @@ function describe(vote: MyVoteItem): string {
   if (vote.rating === 'ma') parts.push('avaliou como má proposta');
   return parts.join(' · ');
 }
-
 export function MyVotesSection({ votes, loading, error, reload, voterOnly }: Props) {
   const toast = useToast();
   const { forgetVoter } = useSession();

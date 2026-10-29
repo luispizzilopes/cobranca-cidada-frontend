@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
-import { Container } from '../layout/Page/Page';
+import { Container } from '../layout/Page/Page.styles';
 import { Alert } from './Alert/Alert';
 import { Button } from './Button/Button';
 

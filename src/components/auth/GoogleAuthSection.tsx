@@ -1,63 +1,18 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { Button, FormError } from '../common';
 import { googleClientId } from '../../data/domains';
 import { authService } from '../../services/auth/authService';
 import { apiErrorCode, extractApiError } from '../../utils/apiError';
 import { safeRedirect } from '../../utils/password';
 import { GoogleSignInButton } from './GoogleSignInButton';
-
-const Divider = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 20px 0 16px;
-  color: var(--muted);
-  font-size: 0.929rem;
-
-  &::before,
-  &::after {
-    content: '';
-    flex: 1;
-    border-top: 1px solid var(--border);
-  }
-`;
-
-const Consent = styled.div`
-  display: grid;
-  gap: 12px;
-  padding: 16px;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-
-  label {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  input {
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
-    flex: none;
-  }
-`;
-
-const ErrorLine = styled.p`
-  margin: 0;
-  color: var(--danger);
-  font-weight: 500;
-`;
+import { Consent, Divider, ErrorLine } from './GoogleAuthSection.styles';
 
 interface GoogleAuthSectionProps {
   text: 'signin_with' | 'signup_with';
   /** Marca que a tela vai cuidar do redirecionamento depois de entrar (evita o desvio para /conta). */
   markSubmitting: () => void;
 }
-
 /**
  * "Entrar com o Google" nas telas de login e cadastro. Quem já tem conta com o mesmo e-mail entra direto
  * (a API vincula as contas). Quem é novo precisa antes aceitar a política de privacidade.

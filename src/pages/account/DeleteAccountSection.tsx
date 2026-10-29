@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Alert, Button, FormError, Input, Modal } from '../../components/common';
 import { GoogleSignInButton } from '../../components/auth/GoogleSignInButton';
-import { Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { googleClientId } from '../../data/domains';
 import { authService, type IdentityProof } from '../../services/auth/authService';
 import { extractApiError } from '../../utils/apiError';

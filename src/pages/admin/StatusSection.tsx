@@ -10,7 +10,7 @@ import {
   Textarea,
   useToast,
 } from '../../components/common';
-import { Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { adminService } from '../../services/admin/adminService';
 import type { AdminCommitmentDetail, StatusInfo } from '../../services/types';
 import { extractApiError } from '../../utils/apiError';

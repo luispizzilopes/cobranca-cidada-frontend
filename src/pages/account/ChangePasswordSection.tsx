@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Alert, Button, FormError, Input } from '../../components/common';
-import { Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { authService } from '../../services/auth/authService';
 import { extractApiError } from '../../utils/apiError';
 import { PASSWORD_HINT, passwordError } from '../../utils/password';

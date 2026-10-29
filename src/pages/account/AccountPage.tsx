@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { Alert, Button, LinkButton, Loading } from '../../components/common';
-import { Page, Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Page } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { useSession } from '../../contexts/SessionContext';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { useProfile } from '../../hooks/useProfile';
@@ -11,61 +11,7 @@ import { authService } from '../../services/auth/authService';
 import { ChangePasswordSection } from './ChangePasswordSection';
 import { DeleteAccountSection } from './DeleteAccountSection';
 import { MyVotesSection } from './MyVotesSection';
-
-const Layout = styled.div`
-  display: grid;
-  gap: 24px;
-  align-items: start;
-  grid-template-areas: 'account' 'votes' 'password' 'delete';
-
-  @media (min-width: 1000px) {
-    grid-template-columns: minmax(0, 1fr) 360px;
-    grid-template-areas:
-      'votes account'
-      'votes password'
-      'votes delete'
-      'votes .';
-    grid-template-rows: auto auto auto 1fr;
-  }
-`;
-
-const Area = styled.div<{ $name: string }>`
-  grid-area: ${({ $name }) => $name};
-  min-width: 0;
-`;
-
-const Profile = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-`;
-
-const Avatar = styled.span`
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--primary);
-  color: var(--on-primary);
-  font-size: 1.5rem;
-  font-weight: 700;
-`;
-
-const Identity = styled.div`
-  min-width: 0;
-
-  strong,
-  span {
-    display: block;
-    overflow-wrap: anywhere;
-  }
-  span {
-    color: var(--muted);
-  }
-`;
+import { Area, Avatar, Identity, Layout, Profile } from './AccountPage.styles';
 
 export function AccountPage() {
   usePageTitle('Meus dados e votos');

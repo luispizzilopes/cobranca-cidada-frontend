@@ -1,42 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { Button, FormError, Input, Modal, useToast } from '../common';
 import { votingService } from '../../services/voting/votingService';
 import { extractApiError } from '../../utils/apiError';
-
-const Actions = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
-`;
-
-const Aside = styled.p`
-  margin: 16px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-  font-size: 0.929rem;
-  color: var(--muted);
-`;
-
-const LinkButton = styled.button`
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--link);
-  text-decoration: underline;
-  font-weight: 600;
-`;
+import { Actions, Aside, LinkButton } from './VerifyEmailDialog.styles';
 
 const RESEND_SECONDS = 60;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 interface Props {
   onVerified: () => void;
   onDismiss: () => void;
 }
-
 /** Votar só com e-mail verificado: a pessoa confirma a caixa postal com um código, sem criar conta nem senha. */
 export function VerifyEmailDialog({ onVerified, onDismiss }: Props) {
   const toast = useToast();

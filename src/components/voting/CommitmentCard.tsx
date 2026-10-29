@@ -1,95 +1,28 @@
 import { CalendarClock, FileText, Newspaper, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import { Badge, StatusBadge } from '../common';
 import { VoteBar } from './VoteBar';
 import type { CommitmentSummary, VoteState } from '../../services/types';
 import { cleanDeadlineText } from '../../utils/deadlines';
-
-const Card = styled.article`
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 20px 24px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow);
-`;
-
-const Meta = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-`;
-
-const Code = styled.span`
-  color: var(--muted);
-  font-size: 0.857rem;
-  font-weight: 600;
-`;
-
-const Title = styled.h3`
-  margin: 0;
-  font-size: 1.286rem;
-
-  a {
-    color: var(--text);
-    text-decoration: none;
-  }
-  a:hover {
-    color: var(--primary);
-    text-decoration: underline;
-  }
-`;
-
-const Description = styled.p`
-  margin: 0;
-  color: var(--text);
-`;
-
-const Facts = styled.ul`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  color: var(--muted);
-  font-size: 0.929rem;
-
-  li {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-`;
-
-const Footer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px 24px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-`;
-
-const DetailLink = styled(Link)`
-  font-weight: 600;
-`;
+import {
+  Card,
+  Code,
+  Description,
+  DetailLink,
+  Facts,
+  Footer,
+  Meta,
+  Title,
+} from './CommitmentCard.styles';
 
 /** Origem fora do plano oficial (campanha ou imprensa) é sinalizada, para não se misturar com o texto do plano. */
 export function isOutsideOfficialPlan(originCode: string): boolean {
   return originCode !== 'plano-de-governo';
 }
-
 interface Props {
   commitment: CommitmentSummary;
   onVoteChange: (state: VoteState) => void;
 }
-
 export function CommitmentCard({ commitment, onVoteChange }: Props) {
   const c = commitment;
   return (

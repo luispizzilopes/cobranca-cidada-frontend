@@ -1,8 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { Search, X } from 'lucide-react';
-import styled from 'styled-components';
 import { Alert, Button, Loading, Pagination, Select } from '../../components/common';
-import { Container } from '../../components/layout/Page/Page';
+import { Container } from '../../components/layout/Page/Page.styles';
 import { Countdown } from '../../components/voting/Countdown';
 import { CommitmentCard } from '../../components/voting/CommitmentCard';
 import { useVerifyEmail } from '../../contexts/VerifyEmailContext';
@@ -15,124 +14,25 @@ import { MostChargedPanel } from './MostChargedPanel';
 import { RecentCommentsPanel } from './RecentCommentsPanel';
 import { PAGE_SIZE, useCatalogFilters, type Tab } from './useCatalogFilters';
 import { formatNumber } from '../../utils/numbers';
-
-const Hero = styled.section`
-  background: var(--hero-bg);
-  color: var(--hero-text);
-  padding: 40px 0;
-  border-bottom: 6px solid var(--yellow);
-
-  h1 {
-    margin: 0 0 8px;
-    font-size: 2.571rem;
-  }
-  p {
-    max-width: 62ch;
-    margin: 0 0 20px;
-    font-size: 1.143rem;
-  }
-`;
-
-const Layout = styled(Container)`
-  display: grid;
-  gap: 32px;
-  padding-top: 32px;
-
-  @media (min-width: 1000px) {
-    grid-template-columns: minmax(0, 1fr) 320px;
-    align-items: start;
-  }
-
-  @media (min-width: 1200px) {
-    grid-template-columns: minmax(0, 1fr) 380px;
-  }
-`;
-
-const Filters = styled.form`
-  display: grid;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding: 16px 20px;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-
-  @media (min-width: 700px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-`;
-
-const SearchRow = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
-
-  @media (min-width: 700px) {
-    grid-column: 1 / -1;
-  }
-  & > div {
-    flex: 1;
-  }
-`;
-
-const SearchLabel = styled.label`
-  display: block;
-  margin-bottom: 4px;
-  font-weight: 600;
-  font-size: 0.875rem;
-`;
-
-const SearchInput = styled.input`
-  width: 100%;
-  min-height: 40px;
-  padding: 0 12px;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius);
-`;
-
-const Tabs = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--border);
-`;
-
-const TabButton = styled.button<{ $on: boolean }>`
-  padding: 10px 16px;
-  border: 0;
-  border-bottom: 4px solid ${({ $on }) => ($on ? 'var(--green)' : 'transparent')};
-  background: transparent;
-  color: ${({ $on }) => ($on ? 'var(--primary)' : 'var(--text)')};
-  font-weight: 600;
-
-  &:hover {
-    background: var(--hover);
-  }
-`;
-
-const Results = styled.div`
-  display: grid;
-  gap: 16px;
-`;
-
-const Summary = styled.p`
-  margin: 0 0 12px;
-  color: var(--muted);
-`;
-
-const Side = styled.aside`
-  display: grid;
-  gap: 16px;
-`;
+import {
+  Filters,
+  Hero,
+  Layout,
+  Results,
+  SearchInput,
+  SearchLabel,
+  SearchRow,
+  Side,
+  Summary,
+  TabButton,
+  Tabs,
+} from './CatalogPage.styles';
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'todas', label: 'Todas' },
   { id: 'minhas', label: 'Minhas cobranças' },
   { id: 'prazo', label: 'Com prazo' },
 ];
-
 const SORT_OPTIONS: { value: CommitmentSort; label: string }[] = [
   { value: 'area', label: 'Por área' },
   { value: 'code', label: 'Por código' },
@@ -141,7 +41,6 @@ const SORT_OPTIONS: { value: CommitmentSort; label: string }[] = [
   { value: 'melhor-avaliadas', label: 'Melhor avaliadas' },
   { value: 'pior-avaliadas', label: 'Pior avaliadas' },
 ];
-
 export function CatalogPage() {
   usePageTitle();
   const { filters, update, clear, query, hasActiveFilters } = useCatalogFilters();

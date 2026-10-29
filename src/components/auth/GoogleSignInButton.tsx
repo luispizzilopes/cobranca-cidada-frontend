@@ -1,29 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import { googleClientId } from '../../data/domains';
 import { loadGoogleScript, setGoogleCredentialHandler } from './googleIdentity';
-
-const Holder = styled.div`
-  display: flex;
-  justify-content: center;
-  min-height: 44px;
-  /* O botão do Google é desenhado em um iframe com fundo próprio; no tema escuro ele ganha uma moldura clara. */
-  color-scheme: light;
-`;
-
-const Unavailable = styled.p`
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.929rem;
-  text-align: center;
-`;
+import { Holder, Unavailable } from './GoogleSignInButton.styles';
 
 interface GoogleSignInButtonProps {
   /** Texto do botão: entrar, cadastrar ou apenas continuar/confirmar. */
   text?: 'signin_with' | 'signup_with' | 'continue_with';
   onCredential: (credential: string) => void;
 }
-
 /** Botão oficial "Entrar com o Google". Não aparece se o site não tiver `VITE_GOOGLE_CLIENT_ID`. */
 export function GoogleSignInButton({
   text = 'signin_with',

@@ -1,6 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { Button, FormError, Textarea, useToast } from '../../components/common';
-import { Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { adminService } from '../../services/admin/adminService';
 import type { AdminCommitmentDetail, Catalog } from '../../services/types';
 import { extractApiError } from '../../utils/apiError';

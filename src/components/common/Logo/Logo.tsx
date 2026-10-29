@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 import {
   BAND,
   DISC,
@@ -13,43 +11,7 @@ import {
   starPoints,
 } from '../../../utils/brazilFlag';
 import { SITE_NAME, SITE_TAGLINE } from '../../../data/site';
-
-const Wrapper = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--primary);
-
-  &:hover {
-    color: var(--primary-hover);
-  }
-`;
-
-const Mark = styled.span`
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 31px;
-`;
-
-const Text = styled.span`
-  display: grid;
-  gap: 3px;
-`;
-
-const Name = styled.span`
-  font-size: 1.286rem;
-  font-weight: 700;
-  line-height: 1;
-`;
-
-const Tagline = styled.span`
-  color: var(--muted);
-  font-size: 0.786rem;
-  font-weight: 600;
-  line-height: 1;
-`;
+import { Mark, Name, Tagline, Text, Wrapper } from './Logo.styles';
 
 /** Bandeira do Brasil como símbolo do site. Não usa o brasão nem a marca do gov.br. */
 export function Logo() {

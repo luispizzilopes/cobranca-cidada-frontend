@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { isAxiosError, isCancel } from 'axios';
 import { ExternalLink } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import {
   Alert,
   Badge,
@@ -13,7 +12,8 @@ import {
   StatusBadge,
   useToast,
 } from '../../components/common';
-import { Container, Breadcrumb, Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Breadcrumb } from '../../components/layout/Page/Page';
+import { Container, Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { useCatalog } from '../../hooks/useCatalog';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { adminService } from '../../services/admin/adminService';
@@ -23,26 +23,7 @@ import { formatDateTime } from '../../utils/dates';
 import { AdminNav } from './AdminNav';
 import { CommitmentEditForm } from './CommitmentEditForm';
 import { StatusSection } from './StatusSection';
-
-const Title = styled.h1`
-  margin: 8px 0 12px;
-  font-size: 1.857rem;
-`;
-
-const Meta = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 12px;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-const Stack = styled.div`
-  display: grid;
-  gap: 24px;
-  max-width: 920px;
-  padding-bottom: 48px;
-`;
+import { Meta, Stack, Title } from './AdminCommitmentPage.styles';
 
 export function AdminCommitmentPage() {
   const { id } = useParams();

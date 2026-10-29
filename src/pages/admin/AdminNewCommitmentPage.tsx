@@ -9,7 +9,8 @@ import {
   Loading,
   useToast,
 } from '../../components/common';
-import { Page, Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Page } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { useCatalog } from '../../hooks/useCatalog';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { adminService } from '../../services/admin/adminService';

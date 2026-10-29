@@ -1,55 +1,8 @@
 import { Megaphone, ThumbsDown, ThumbsUp } from 'lucide-react';
-import styled from 'styled-components';
 import { useVote } from '../../hooks/useVote';
 import type { MyVote, VoteState, VoteSummary } from '../../services/types';
 import { formatNumber } from '../../utils/numbers';
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-`;
-
-const Group = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-`;
-
-const Toggle = styled.button<{ $on: boolean }>`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  padding: 0 8px 0 16px;
-  border: 1px solid var(--primary);
-  border-radius: 100em;
-  background: ${({ $on }) => ($on ? 'var(--primary)' : 'transparent')};
-  color: ${({ $on }) => ($on ? 'var(--on-primary)' : 'var(--primary)')};
-  font-weight: 600;
-
-  &:hover:not(:disabled) {
-    background: ${({ $on }) => ($on ? 'var(--primary-hover)' : 'var(--hover)')};
-  }
-  &:disabled {
-    opacity: 0.6;
-    cursor: progress;
-  }
-`;
-
-/** Contagem pública dentro do botão: o número fica junto da ação a que se refere. */
-const Count = styled.span<{ $on: boolean }>`
-  display: inline-grid;
-  place-items: center;
-  min-width: 26px;
-  height: 26px;
-  padding: 0 8px;
-  border-radius: 100em;
-  background: ${({ $on }) => ($on ? 'rgb(255 255 255 / 0.22)' : 'var(--hover)')};
-  font-size: 0.857rem;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-`;
+import { Count, Group, Toggle, Wrapper } from './VoteBar.styles';
 
 interface VoteBarProps {
   commitmentId: string;
@@ -57,7 +10,6 @@ interface VoteBarProps {
   votes: VoteSummary;
   onChange: (state: VoteState) => void;
 }
-
 /** "Cobrar" e "Boa/Má proposta": opiniões. Não alteram a situação de execução. */
 export function VoteBar({ commitmentId, myVote, votes, onChange }: VoteBarProps) {
   const { pending, toggleCharge, toggleRating } = useVote(commitmentId, myVote, onChange);

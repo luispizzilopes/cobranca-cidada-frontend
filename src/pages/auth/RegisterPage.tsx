@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { Button, FormError, Input } from '../../components/common';
 import { GoogleAuthSection } from '../../components/auth/GoogleAuthSection';
 import { AuthCard } from '../../components/layout/AuthCard/AuthCard';
@@ -8,26 +7,7 @@ import { useRedirectIfSignedIn } from '../../hooks/useRedirectIfSignedIn';
 import { authService } from '../../services/auth/authService';
 import { extractApiError } from '../../utils/apiError';
 import { EMAIL_PATTERN, PASSWORD_HINT, passwordError, safeRedirect } from '../../utils/password';
-
-const Check = styled.label`
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 16px;
-
-  input {
-    width: 20px;
-    height: 20px;
-    margin-top: 2px;
-    flex: none;
-  }
-`;
-
-const ErrorLine = styled.p`
-  margin: -8px 0 12px;
-  color: var(--danger);
-  font-weight: 500;
-`;
+import { Check, ErrorLine } from './RegisterPage.styles';
 
 export function RegisterPage() {
   const navigate = useNavigate();

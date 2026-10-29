@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import styled from 'styled-components';
 import { Alert, Button, FormError, Input, Loading, useToast } from '../../components/common';
-import { Page, Panel, SectionTitle } from '../../components/layout/Page/Page';
+import { Page } from '../../components/layout/Page/Page';
+import { Panel, SectionTitle } from '../../components/layout/Page/Page.styles';
 import { invalidateCatalog } from '../../hooks/useCatalog';
 import { usePageTitle } from '../../hooks/usePageTitle';
 import { adminService } from '../../services/admin/adminService';
@@ -9,33 +9,13 @@ import { catalogService } from '../../services/catalog/catalogService';
 import type { Catalog, Lookup } from '../../services/types';
 import { extractApiError } from '../../utils/apiError';
 import { AdminNav } from './AdminNav';
-
-const Grid = styled.div`
-  display: grid;
-  gap: 24px;
-  max-width: 820px;
-`;
-
-const Form = styled.form`
-  display: grid;
-  gap: 8px 12px;
-  align-items: end;
-  margin-bottom: 8px;
-
-  @media (min-width: 600px) {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-  & > div {
-    margin-bottom: 0;
-  }
-`;
+import { Form, Grid } from './AdminCatalogPage.styles';
 
 interface RowProps {
   item: Lookup;
   kind: 'area' | 'origem';
   onRenamed: (item: Lookup) => void;
 }
-
 function RenameRow({ item, kind, onRenamed }: RowProps) {
   const toast = useToast();
   const [name, setName] = useState(item.name);
@@ -82,7 +62,6 @@ function RenameRow({ item, kind, onRenamed }: RowProps) {
     </Form>
   );
 }
-
 export function AdminCatalogPage() {
   usePageTitle('Administração — áreas e origens');
   const [catalog, setCatalog] = useState<Catalog | null>(null);
