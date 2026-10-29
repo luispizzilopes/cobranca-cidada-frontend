@@ -1,5 +1,11 @@
 import { expect, test } from '@playwright/test';
-import { expectNoSeriousA11yViolations, makeAdmin, registerAccount, uniqueEmail } from './helpers';
+import {
+  chooseOption,
+  expectNoSeriousA11yViolations,
+  makeAdmin,
+  registerAccount,
+  uniqueEmail,
+} from './helpers';
 
 test('administração: só quem tem a flag no banco entra e consegue revisar compromissos', async ({
   page,
@@ -40,7 +46,7 @@ test('administração: só quem tem a flag no banco entra e consegue revisar com
   await expect(page.getByText('Até 30/06/2028').first()).toBeVisible();
 
   await page.goto('/admin/compromissos/ECON-006');
-  await page.getByLabel('Nova situação').selectOption({ label: 'Em andamento' });
+  await chooseOption(page, 'Nova situação', 'Em andamento');
   await page.getByRole('button', { name: 'Registrar situação' }).click();
   await expect(page.getByText(/exige uma fonte com URL/)).toBeVisible();
   await page.getByLabel('URL da fonte').fill('https://www.gov.br/planalto/exemplo');

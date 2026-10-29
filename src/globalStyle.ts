@@ -169,6 +169,12 @@ const GlobalStyle = createGlobalStyle`
     outline-offset: var(--focus-offset);
   }
 
+  /* Campos de texto: contorno tracejado mais fino que o foco padrão. */
+  input:focus-visible,
+  textarea:focus-visible {
+    outline-width: 1px;
+  }
+
   /* Texto só para leitores de tela. */
   .sr-only {
     position: absolute;

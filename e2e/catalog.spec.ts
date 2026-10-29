@@ -1,18 +1,20 @@
 import { expect, test } from '@playwright/test';
-import { expectNoSeriousA11yViolations } from './helpers';
+import { chooseOption, expectNoSeriousA11yViolations } from './helpers';
 
 test('lista, filtra por área e situação, busca e abre o detalhe', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { name: 'Cada promessa merece uma resposta' })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Cada promessa merece uma resposta' }),
+  ).toBeVisible();
   await expect(page.getByRole('status').filter({ hasText: /de \d+ compromissos/ })).toBeVisible();
   await expect(
     page.getByText('Site de cidadãos, sem vínculo com o governo.').first(),
   ).toBeVisible();
   await expect(page.getByText(/dias? para a posse prevista/)).toBeVisible();
 
-  await page.getByLabel('Área').selectOption({ label: 'Economia e responsabilidade fiscal' });
+  await chooseOption(page, 'Área', 'Economia e responsabilidade fiscal');
   await expect(page).toHaveURL(/area=ECON/);
-  await page.getByLabel('Situação de execução').selectOption({ label: 'Em andamento' });
+  await chooseOption(page, 'Situação de execução', 'Em andamento');
   await expect(page).toHaveURL(/situacao=InProgress/);
   await expect(page.getByRole('article').first()).toContainText('Em andamento');
 
@@ -38,7 +40,7 @@ test('aba "Com prazo", paginação e ordenação', async ({ page }) => {
   await expect(page).toHaveURL(/pagina=2/);
   await expect(page.getByRole('status').filter({ hasText: /13–24 de 32/ })).toBeVisible();
 
-  await page.getByLabel('Ordenar').selectOption('mais-cobradas');
+  await chooseOption(page, 'Ordenar', 'Mais cobradas');
   await expect(page).toHaveURL(/ordem=mais-cobradas/);
   await expect(page).not.toHaveURL(/pagina=/);
 });

@@ -105,7 +105,7 @@ export function CatalogPage() {
               label="Área"
               placeholder="Todas as áreas"
               value={filters.area}
-              onChange={(event) => update({ area: event.target.value })}
+              onChange={(v) => update({ area: v })}
               options={(catalog?.areas ?? []).map((a) => ({ value: a.code, label: a.name }))}
             />
             <Select
@@ -113,7 +113,7 @@ export function CatalogPage() {
               label="Origem"
               placeholder="Todas as origens"
               value={filters.origem}
-              onChange={(event) => update({ origem: event.target.value })}
+              onChange={(v) => update({ origem: v })}
               options={(catalog?.origins ?? []).map((o) => ({ value: o.code, label: o.name }))}
             />
             <Select
@@ -121,14 +121,14 @@ export function CatalogPage() {
               label="Situação de execução"
               placeholder="Todas as situações"
               value={filters.situacao}
-              onChange={(event) => update({ situacao: event.target.value })}
+              onChange={(v) => update({ situacao: v })}
               options={(catalog?.statuses ?? []).map((s) => ({ value: s.value, label: s.label }))}
             />
             <Select
               id="filtro-ordem"
               label="Ordenar"
               value={filters.ordem}
-              onChange={(event) => update({ ordem: event.target.value as CommitmentSort })}
+              onChange={(v) => update({ ordem: v as CommitmentSort })}
               options={SORT_OPTIONS}
             />
             {hasActiveFilters && (

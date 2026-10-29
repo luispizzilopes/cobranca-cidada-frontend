@@ -116,7 +116,7 @@ export function AdminCommitmentsPage() {
           placeholder="Todas"
           options={toOptions(catalog?.areas)}
           value={params.get('area') ?? ''}
-          onChange={(e) => update({ area: e.target.value || null })}
+          onChange={(v) => update({ area: v || null })}
         />
         <Select
           id="admin-origem"
@@ -124,7 +124,7 @@ export function AdminCommitmentsPage() {
           placeholder="Todas"
           options={toOptions(catalog?.origins)}
           value={params.get('origem') ?? ''}
-          onChange={(e) => update({ origem: e.target.value || null })}
+          onChange={(v) => update({ origem: v || null })}
         />
         <Select
           id="admin-situacao"
@@ -132,7 +132,7 @@ export function AdminCommitmentsPage() {
           placeholder="Todas"
           options={(catalog?.statuses ?? []).map((s) => ({ value: s.value, label: s.label }))}
           value={params.get('situacao') ?? ''}
-          onChange={(e) => update({ situacao: e.target.value || null })}
+          onChange={(v) => update({ situacao: v || null })}
         />
         <Select
           id="admin-publicado"
@@ -140,14 +140,14 @@ export function AdminCommitmentsPage() {
           placeholder="Todos"
           options={publishedOptions}
           value={published ?? ''}
-          onChange={(e) => update({ publicado: e.target.value || null })}
+          onChange={(v) => update({ publicado: v || null })}
         />
         <Select
           id="admin-ordem"
           label="Ordenar por"
           options={sortOptions}
           value={params.get('ordem') ?? 'area'}
-          onChange={(e) => update({ ordem: e.target.value === 'area' ? null : e.target.value })}
+          onChange={(v) => update({ ordem: v === 'area' ? null : v })}
         />
         <div style={{ alignSelf: 'end', marginBottom: 16 }}>
           <Button type="submit">Buscar</Button>

@@ -51,14 +51,14 @@ export function CommitmentFields({ form, setForm, catalog, errors }: Props) {
             label="Área"
             options={catalog.areas.map((a) => ({ value: a.code, label: a.name }))}
             value={form.areaCode}
-            onChange={(e) => set('areaCode', e.target.value)}
+            onChange={(v) => set('areaCode', v)}
           />
           <Select
             id="ed-origem"
             label="Origem"
             options={catalog.origins.map((o) => ({ value: o.code, label: o.name }))}
             value={form.originCode}
-            onChange={(e) => set('originCode', e.target.value)}
+            onChange={(v) => set('originCode', v)}
           />
         </TwoColumns>
         <Input
@@ -192,7 +192,7 @@ export function CommitmentFields({ form, setForm, catalog, errors }: Props) {
                   { value: 'press', label: 'Imprensa' },
                 ]}
                 value={source.kind}
-                onChange={(e) => setSource(index, { kind: e.target.value as 'primary' | 'press' })}
+                onChange={(v) => setSource(index, { kind: v as 'primary' | 'press' })}
               />
             </TwoColumns>
             <Input

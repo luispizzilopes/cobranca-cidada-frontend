@@ -133,7 +133,7 @@ export function ShareBanner({ charges, title, commitmentId, description, plan }:
           id="banner-template"
           label="Modelo do banner"
           value={template}
-          onChange={(e) => setTemplate(e.target.value as BannerTemplate)}
+          onChange={(v) => setTemplate(v as BannerTemplate)}
           options={(Object.keys(bannerTemplates) as BannerTemplate[]).map((key) => ({
             value: key,
             label: bannerTemplates[key].label,

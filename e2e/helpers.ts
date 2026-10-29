@@ -90,3 +90,9 @@ export function makeAdmin(email: string) {
     'dotnet run --project ../cobranca-cidada-backend/Cobranca.Cidada.Presentation -- set-admin --email {email}';
   execSync(template.replaceAll('{email}', email), { stdio: 'pipe', timeout: 120_000 });
 }
+
+/** Escolhe uma opção do Select personalizado (combobox), pelo rótulo do campo e pelo texto da opção. */
+export async function chooseOption(page: Page, field: string, option: string) {
+  await page.getByRole('combobox', { name: field, exact: true }).click();
+  await page.getByRole('option', { name: option, exact: true }).click();
+}

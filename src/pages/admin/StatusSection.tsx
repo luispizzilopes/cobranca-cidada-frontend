@@ -85,7 +85,7 @@ export function StatusSection({ detail, statuses, onChange }: Props) {
           label="Nova situação"
           options={statuses.map((s) => ({ value: s.value, label: s.label }))}
           value={status}
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={setStatus}
         />
         {unfulfilled && (
           <Alert tone="warning">
