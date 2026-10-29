@@ -83,7 +83,7 @@ export function CatalogPage() {
 
       <Layout>
         <div>
-          <Filters onSubmit={submitSearch} aria-label="Filtros">
+          <Filters onSubmit={submitSearch} aria-label="Filtros" data-tour="filtros">
             <SearchRow>
               <div>
                 <SearchLabel htmlFor="filtro-busca">Buscar por palavra ou código</SearchLabel>
@@ -141,7 +141,7 @@ export function CatalogPage() {
             )}
           </Filters>
 
-          <Tabs role="group" aria-label="Visualização">
+          <Tabs role="group" aria-label="Visualização" data-tour="abas">
             {TABS.map((tab) => (
               <TabButton
                 key={tab.id}

@@ -18,7 +18,7 @@ export function VoteBar({ commitmentId, myVote, votes, onChange }: VoteBarProps)
   const bad = votes.bad ?? 0;
 
   return (
-    <Wrapper>
+    <Wrapper data-tour="votos">
       <Group role="group" aria-label="Sua opinião sobre este compromisso" aria-busy={pending}>
         <Toggle
           type="button"

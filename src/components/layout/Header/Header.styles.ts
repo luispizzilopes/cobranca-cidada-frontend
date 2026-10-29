@@ -191,3 +191,28 @@ export const UserLabel = styled.span`
     display: none;
   }
 `;
+
+export const HelpButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 100em;
+  background: transparent;
+  color: var(--primary);
+  font-weight: 600;
+
+  &:hover {
+    background: var(--hover);
+  }
+
+  @media (max-width: 599px) {
+    padding: 0 10px;
+
+    span {
+      display: none;
+    }
+  }
+`;

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
+import { TourProvider } from '../../../contexts/TourContext';
 import { VerifyEmailProvider } from '../../../contexts/VerifyEmailContext';
 import { Footer } from '../Footer/Footer';
 import { Header } from '../Header/Header';
@@ -22,19 +23,21 @@ export function AppLayout() {
 
   return (
     <VerifyEmailProvider>
-      <Shell>
-        <SkipLinks aria-label="Atalhos">
-          <a href="#conteudo">Ir para o conteúdo</a>
-          <a href="#menu-principal">Ir para o menu</a>
-          <a href="#busca-global">Ir para a busca</a>
-        </SkipLinks>
-        <IndependentBanner />
-        <Header />
-        <Main id="conteudo" ref={mainRef} tabIndex={-1}>
-          <Outlet />
-        </Main>
-        <Footer />
-      </Shell>
+      <TourProvider>
+        <Shell>
+          <SkipLinks aria-label="Atalhos">
+            <a href="#conteudo">Ir para o conteúdo</a>
+            <a href="#menu-principal">Ir para o menu</a>
+            <a href="#busca-global">Ir para a busca</a>
+          </SkipLinks>
+          <IndependentBanner />
+          <Header />
+          <Main id="conteudo" ref={mainRef} tabIndex={-1}>
+            <Outlet />
+          </Main>
+          <Footer />
+        </Shell>
+      </TourProvider>
     </VerifyEmailProvider>
   );
 }

@@ -26,7 +26,7 @@ interface Props {
 export function CommitmentCard({ commitment, onVoteChange }: Props) {
   const c = commitment;
   return (
-    <Card aria-labelledby={`titulo-${c.id}`}>
+    <Card aria-labelledby={`titulo-${c.id}`} data-tour="cartao">
       <Meta>
         <Code>{c.id}</Code>
         <Badge>{c.area.name}</Badge>
@@ -71,7 +71,7 @@ export function CommitmentCard({ commitment, onVoteChange }: Props) {
       </Facts>
       <Footer>
         <VoteBar commitmentId={c.id} myVote={c.myVote} votes={c.votes} onChange={onVoteChange} />
-        <DetailLink to={`/compromissos/${encodeURIComponent(c.id)}`}>
+        <DetailLink data-tour="detalhes" to={`/compromissos/${encodeURIComponent(c.id)}`}>
           Ver fontes e detalhes<span className="sr-only"> de {c.title}</span>
         </DetailLink>
       </Footer>

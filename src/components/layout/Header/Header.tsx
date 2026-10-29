@@ -1,13 +1,15 @@
 import { useState, type FormEvent } from 'react';
-import { Menu, Moon, Search, Sun, User, X } from 'lucide-react';
+import { CircleHelp, Menu, Moon, Search, Sun, User, X } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Logo, LinkButton } from '../../common';
 import { navItems } from '../../../data/site';
 import { useSession } from '../../../contexts/SessionContext';
 import { useTheme } from '../../../contexts/ThemeContext';
+import { useTour } from '../../../contexts/TourContext';
 import {
   Actions,
   Avatar,
+  HelpButton,
   IconButton,
   MenuToggle,
   Nav,
@@ -24,6 +26,7 @@ export function Header() {
   const navigate = useNavigate();
   const { kind, user, isAdmin } = useSession();
   const { theme, toggleTheme } = useTheme();
+  const { start: startTour } = useTour();
   const [menuOpen, setMenuOpen] = useState(false);
   const [term, setTerm] = useState('');
   const displayName = kind === 'account' ? (user?.name ?? 'Minha conta') : 'E-mail verificado';
@@ -63,7 +66,11 @@ export function Header() {
             <Search size={18} aria-hidden="true" />
           </SearchButton>
         </SearchForm>
-        <Actions>
+        <Actions data-tour="conta">
+          <HelpButton type="button" onClick={startTour} title="Fazer o passo a passo">
+            <CircleHelp size={18} aria-hidden="true" />
+            <span>Tutorial</span>
+          </HelpButton>
           <IconButton
             type="button"
             onClick={toggleTheme}
@@ -89,7 +96,7 @@ export function Header() {
           )}
         </Actions>
       </Top>
-      <Nav id="menu-principal" aria-label="Principal" $open={menuOpen}>
+      <Nav id="menu-principal" data-tour="menu" aria-label="Principal" $open={menuOpen}>
         <ul>
           {navItems.map((item) => (
             <li key={item.to}>
