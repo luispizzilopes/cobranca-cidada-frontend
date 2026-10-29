@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1351b4" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!--
+      SEO. As etiquetas da página inicial (título, descrição, canonical, Open Graph) são geradas pelo plugin do Vite
+      (vite-seo-plugin.ts) a partir de src/seo/pages.ts e entram entre os marcadores abaixo. Cada página estática
+      ganha uma cópia deste arquivo com as suas próprias etiquetas.
+
+      Os comentários que começam com "#" (block e include) são comandos SSI do nginx; veja nginx.conf.template.
+      Para /compromissos/:id o nginx pede à API as etiquetas do compromisso e usa o bloco abaixo só se a API não
+      responder ou responder vazio. Fora do nginx (npm run dev) eles são apenas comentários e o bloco aparece normalmente.
+    -->
+    <!--# block name="seo-head-default" -->
+    <!--seo-head-start--><!--seo-head-end-->
+    <!--# endblock -->
+    <!--# include virtual="/_seo/head?path=$seo_path" stub="seo-head-default" -->
+  </head>
+  <body>
+    <div id="root"><!--# include virtual="/_seo/body?path=$seo_path" --></div>
+    <noscript>Este site precisa de JavaScript para funcionar.</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

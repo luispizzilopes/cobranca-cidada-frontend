@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1351b4"/>
+  <rect y="0" width="1200" height="14" fill="#168821"/>
+  <rect y="0" x="400" width="400" height="14" fill="#ffcd07"/>
+  <rect y="0" x="800" width="400" height="14" fill="#ffffff"/>
+  <circle cx="150" cy="240" r="68" fill="#ffffff"/>
+  <path d="M118 240 l24 26 l44 -52" fill="none" stroke="#1351b4" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="250" y="222" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="700" fill="#dbe8fb" letter-spacing="3">COBRANÇA CIDADÃ</text>
+  <text x="250" y="284" font-family="Helvetica, Arial, sans-serif" font-size="62" font-weight="700" fill="#ffffff">Prometeu. Cumpriu? Cobre.</text>
+  <text x="80" y="420" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#ffffff">Conferimos, uma a uma, as promessas de campanha</text>
+  <text x="80" y="476" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#ffffff">do presidente Lula, com fonte pública.</text>
+  <rect x="0" y="548" width="1200" height="82" fill="#071d41"/>
+  <text x="80" y="600" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#dbe8fb">Site de cidadãos, sem vínculo com o governo.</text>
+</svg>

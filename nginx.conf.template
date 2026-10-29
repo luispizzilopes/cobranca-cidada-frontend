@@ -1,0 +1,99 @@
+# Caminho da página para o include SSI do SEO (veja index.html). Só caracteres seguros de um caminho: o valor vai
+# para a URL de uma subrequisição interna. Qualquer outra coisa vira "/" e a API não devolve nada para ela.
+map $request_uri $seo_path {
+    default /;
+    "~^(?<seo_clean>/[A-Za-z0-9._~/-]*)" $seo_clean;
+}
+
+# O HTML nunca é reaproveitado sem revalidar (as páginas mudam a cada publicação; os assets têm hash no nome).
+map $uri $html_cache_control {
+    ~/index\.html$ "no-cache";
+    default "";
+}
+
+server {
+    listen ${PORT};
+    root /usr/share/nginx/html;
+    index index.html;
+
+    gzip on;
+    gzip_types text/css application/javascript application/json image/svg+xml;
+
+    # Resolve o nome da API em tempo de execução: o site sobe mesmo que a API ainda não esteja no ar.
+    resolver ${NGINX_RESOLVER} valid=30s ipv6=off;
+
+    # SEO sem servidor Node: o index.html leva comandos SSI que pedem à API as etiquetas do <head> (título, descrição,
+    # Open Graph, dados estruturados) e um resumo do conteúdo de cada compromisso. Se a API falhar, vale o padrão do HTML.
+    ssi on;
+    ssi_silent_errors on;
+
+    # Cabeçalhos de segurança (OWASP ASVS). A CSP libera scripts só do próprio site (e do Google, para o botão
+    # "Entrar com o Google") e chamadas só à API. 'unsafe-inline' em style-src é necessário porque o styled-components
+    # injeta estilos em tempo de execução.
+    # Referrer-Policy: o botão do Google confere a origem do site; "no-referrer" o faria recusar o login.
+    add_header Cache-Control $html_cache_control;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self' https://accounts.google.com/gsi/client; style-src 'self' 'unsafe-inline' https://accounts.google.com/gsi/style; font-src 'self'; img-src 'self' data:; connect-src 'self' ${API_ORIGIN} https://accounts.google.com/gsi/; frame-src https://accounts.google.com/gsi/; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'" always;
+
+    # Robôs de busca: o painel e a conta não têm o que indexar. O sitemap vem da API (lista os compromissos publicados).
+    location = /robots.txt {
+        default_type text/plain;
+        add_header Cache-Control "public, max-age=3600" always;
+        return 200 "User-agent: *\nDisallow: /admin\n\nSitemap: ${SITE_URL}/sitemap.xml\n";
+    }
+
+    location = /sitemap.xml {
+        set $api_upstream "${API_INTERNAL_ORIGIN}";
+        proxy_pass $api_upstream/sitemap.xml;
+        proxy_connect_timeout 2s;
+        proxy_read_timeout 10s;
+        add_header Cache-Control "public, max-age=3600" always;
+        add_header X-Content-Type-Options "nosniff" always;
+    }
+
+    # Subrequisições do SSI (nunca acessíveis de fora). Resposta vazia ou erro: o index.html usa o conteúdo padrão.
+    location = /_seo/head {
+        internal;
+        set $api_upstream "${API_INTERNAL_ORIGIN}";
+        proxy_pass $api_upstream/api/v1/seo/head$is_args$args;
+        proxy_connect_timeout 1s;
+        proxy_read_timeout 2s;
+        proxy_pass_request_body off;
+        proxy_set_header Content-Length "";
+        proxy_intercept_errors on;
+        error_page 400 401 403 404 429 500 502 503 504 = @seo_empty;
+    }
+
+    location = /_seo/body {
+        internal;
+        set $api_upstream "${API_INTERNAL_ORIGIN}";
+        proxy_pass $api_upstream/api/v1/seo/body$is_args$args;
+        proxy_connect_timeout 1s;
+        proxy_read_timeout 2s;
+        proxy_pass_request_body off;
+        proxy_set_header Content-Length "";
+        proxy_intercept_errors on;
+        error_page 400 401 403 404 429 500 502 503 504 = @seo_empty;
+    }
+
+    location @seo_empty {
+        default_type text/html;
+        return 200 "";
+    }
+
+    # Assets com hash no nome
+    location ^~ /assets/ {
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        add_header X-Content-Type-Options "nosniff" always;
+        try_files $uri =404;
+    }
+
+    # Fallback da SPA (react-router). As páginas estáticas têm cópia própria do HTML (/prazos -> prazos/index.html).
+    # Não usar "$uri/": o nginx responderia 301 para "/prazos/" (e com a porta interna do contêiner na URL).
+    location / {
+        try_files $uri $uri/index.html /index.html;
+    }
+}
